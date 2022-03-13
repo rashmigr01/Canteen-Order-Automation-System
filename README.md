@@ -6,3 +6,10 @@ Aim: To digitalise and automate the canteen order system
 - Regular orders are automated by digitalising the canteen’s menu and an e-bill after every order by a non-monthly customer.
 - Ordering from the canteen can also be done remotely by accessing the website. The order queue is made visible to facilitate the picking up of the order and avoid crowding in the canteen.
 - Digital payment details are made available in the monthly bill, and the regular order interface for smooth transactions.
+
+## Project Setup
+- Clone The repository
+- Create virtual environment `python -m venv env`
+- Activate the Virtual Environment.
+- Install all the dependencies `pip install requirements.txt`
+- Try running server `python manage.py runserver`
