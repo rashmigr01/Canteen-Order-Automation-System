@@ -23,4 +23,4 @@ def register(request):
         userEx.save()
         print(userEx.__dict__)
         print("This ran")
-    return render(request, 'home/register.html')
+    return render(request, 'home/registration.html')
