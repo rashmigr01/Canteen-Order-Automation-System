@@ -17,6 +17,10 @@ from argparse import Namespace
 from django.contrib import admin
 from django.urls import path, include
 
+admin.site.site_header = "Canteen Order Automation System (COAS)"
+admin.site.site_title = "COAS Admin Portal"
+admin.site.index_title = "Welcome to COAS Portal"
+
 urlpatterns = [
     path("", include("automation_system.urls")),
     path('admin/', admin.site.urls),
