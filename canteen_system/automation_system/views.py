@@ -25,5 +25,5 @@ def register(request):
         userEx.save()
         print(userEx.__dict__)
         print("This ran")
-        messages.success(request,'You are Regestered Successfully!!')
+        # messages.success(request,'You are Regestered Successfully!!')
     return render(request, 'home/registration.html')
