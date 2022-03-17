@@ -10,8 +10,14 @@
 </head>
 <body>
     <div class="container">
+        {% comment %} <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div> {% endcomment %}
         <div class="title">Register</div>
-        <form action="{% url 'auto:register' %}" method="post" >
+        <form action="/register" method="post" >
             {% csrf_token %}
             <div class="user-details">
                 <div class="input-box">

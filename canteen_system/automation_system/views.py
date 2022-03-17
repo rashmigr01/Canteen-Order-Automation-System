@@ -2,6 +2,8 @@ from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from .models import UserExt
 from django.contrib.auth.models import User
+# from django.contrib.auth import authenticate
+# from django.contrib import messages
 
 
 def index(request):
@@ -23,4 +25,5 @@ def register(request):
         userEx.save()
         print(userEx.__dict__)
         print("This ran")
+        messages.success(request,'You are Regestered Successfully!!')
     return render(request, 'home/registration.html')
