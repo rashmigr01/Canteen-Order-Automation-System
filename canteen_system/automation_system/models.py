@@ -14,3 +14,13 @@ class MenuItem(models.Model):
     price = models.IntegerField(null=True)
     avail = models.BooleanField(null=True)
     isveg = models.BooleanField(null=True)
+
+
+class Orders(models.Model):
+    Hall = models.IntegerField
+    Item = models.CharField
+    Quantity = models.IntegerField
+    D_T = models.CharField(max_length= 1)
+    PayMode = models.CharField(max_length= 1)
+    PayStatus = models.CharField(max_length= 1)
+    Customer = models.ManyToManyField("UserExt")
