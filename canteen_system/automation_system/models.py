@@ -1,3 +1,4 @@
+from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -25,8 +26,16 @@ class MenuItem(models.Model):
 class Order(models.Model):
     hall = models.IntegerField(null=True)
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
-    quantity = models.IntegerField
+    quantity = models.IntegerField(null=True)
     dt = models.IntegerField(null=True)
     paymode = models.CharField(max_length= 1)
     paystatus = models.CharField(max_length= 1)
-    users = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
+
+class Reviews(models.Model):
+    Reviewer = models.ForeignKey(UserExt, on_delete=models.CASCADE)
+    Rating = models.IntegerField(null=True)
+    TextMessage = models.CharField(max_length = 200)
+    order = models.ForeignKey(Order, on_delete = models.CASCADE)
+
+
