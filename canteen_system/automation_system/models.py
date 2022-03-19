@@ -34,4 +34,4 @@ class Reviews(models.Model):
      Rating = models.IntegerField
      TextMessage = models.CharField(max_length = 200)
      order = models.OneToOneField(Orders, 
-          on_delete = models.CASCADE, primary_key = True
+          on_delete = models.CASCADE, primary_key = True)
