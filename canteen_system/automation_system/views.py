@@ -5,10 +5,6 @@ from .models import UserExt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
-
-def index(request):
-    return HttpResponse("HomePage for Automation System.")
-
 def register(request):
     if request.method == "POST":
         user = User.objects.create_user(username = request.POST["usern"], email = request.POST["email"], password= request.POST["passw"])
