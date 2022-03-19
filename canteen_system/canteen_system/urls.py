@@ -24,4 +24,5 @@ admin.site.index_title = "Welcome to COAS Portal"
 urlpatterns = [
     path("", include("automation_system.urls")),
     path('admin/', admin.site.urls),
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
