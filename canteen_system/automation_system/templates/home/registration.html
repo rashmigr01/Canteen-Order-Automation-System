@@ -17,7 +17,7 @@
             </button>
           </div> {% endcomment %}
         <div class="title">Register</div>
-        <form action="/register" method="post" >
+        <form action="{% url 'auto:register' %}" method="post">
             {% csrf_token %}
             <div class="user-details">
                 <div class="input-box">

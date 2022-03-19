@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login_Page</title>
+    {% load static %}
+    <link rel="stylesheet"  href="{% static 'home/login.css' %}" />
+  </head>
+  <body>
+    <div class="center">
+      <div class="head">
+        <img src="{% static 'home/iitk_logo.jpg' %}" id="img" />
+        <h1>IIT Kanpur</h1>
+      </div>
+      <div class="body">
+        <h1 id="l">Login</h1>
+        <form action="{% url 'auto:login' %}" method="post" >
+          {% csrf_token %}
+          <div class="txt_field">
+            <input type="text" required placeholder="Username" name="username" />
+            <span></span>
+          </div>
+          <div class="txt_field">
+            <input type="password" required placeholder="Password" name="password"/>
+            <span></span>
+          </div>
+          <div class="pass"><a href="forgot_password.html">Forgot Password</a></div>
+          <input type="submit" value="Login"/>
+          <div class="signup_link">New User? <a href="{% url 'auto:register' %}">Register</a></div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

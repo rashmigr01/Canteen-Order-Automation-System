@@ -7,23 +7,34 @@ from star_ratings.models import Rating
 
 class UserExt(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    roll = models.IntegerField
-    phone = models.BigIntegerField
-    isStaff = models.BooleanField
+    roll = models.IntegerField(null=True)
+    phone = models.BigIntegerField(null=True)
+    isStaff = models.BooleanField(null=True)
 
-class Order(models.Model):
-    order_id = models.AutoField(primary_key=True)
-    items_json = models.CharField(max_length=5000)
-    user = models.ForeignKey(User,on_delete=models.CASCADE)
-    address = models.CharField(max_length=100)
-    city = models.CharField(max_length=30)
-    state = models.CharField(max_length=30)
-    pincode = models.CharField(max_length=6)
 
-class Review(models.Model):
-    srn = models.AutoField(primary_key=True)
-    comment = models.TextField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    rating = GenericRelation(Rating)
-    timestamp = models.DateTimeField(default=now)
+class MenuItem(models.Model):
+    hall = models.CharField(null=True, max_length=10)
+    item = models.CharField(null=True, max_length=50)
+    price = models.IntegerField(null=True)
+    avail = models.BooleanField(null=True)
+    isveg = models.BooleanField(null=True)
+    # rating = 
+
+class Orders(models.Model):
+    Hall = models.IntegerField
+    Item = models.CharField
+    Quantity = models.IntegerField
+    D_T = models.CharField(max_length= 1)
+    PayMode = models.CharField(max_length= 1)
+    PayStatus = models.CharField(max_length= 1)
+    Customer = models.ForeignKey(UserExt, on_delete = models.CASCADE)
+    # OrderNo = models.IntegerField
+
+    # def save(self):
+    #     self.OrderNo = 100* self.Customer.roll + self.
+
+class Reviews(models.Model):
+     Reviewer = models.ManyToManyField("UserExt")
+     Rating = models.IntegerField
+     TextMessage = models.CharField(max_length = 200)
+     order = models.OneToOneField(Orders, on_delete = models.CASCADE, primary_key = True)
