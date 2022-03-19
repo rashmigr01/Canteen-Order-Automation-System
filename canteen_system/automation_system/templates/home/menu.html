@@ -6,13 +6,14 @@
   .card-body p{
     margin-bottom: 4px;
   }
+
 </style>
 
   <main>
     <div class="row pb-5">
       {% for item in items %}
-        <div class="col-sm-4">
-          <div class="card">
+        <div class="col-sm-2">
+          <div class="card p-2">
             <div class="card-body">
               <h5 class="card-title">{{item.item}}</h5>
               <p class="card-text">Price : Rs {{item.price}}</p>
@@ -22,6 +23,9 @@
             </div>
           </div>
         </div>
+        {% if forloop.counter|divisibleby:6 and forloop.counter > 0 %}
+          </div><div class="row pb-5">
+        {% endif %}
         {% endfor %}
     </div>
   </main>

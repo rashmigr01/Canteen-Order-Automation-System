@@ -27,7 +27,7 @@
           display: none;
         }
         main{
-          padding: 50px 50% 50px 50px;
+          padding: 50px 50px 50px 50px;
           background-image: url("{% static 'home/background_image.png' %}");
           background-repeat: no-repeat;
           background-position: center;
@@ -56,13 +56,22 @@
         .size{
           font-size: 150%;
         }
+        .left{
+          float: left;
+        }
+        .right{
+          float: right;
+        }
+        .bold{
+          font-weight: bold;
+        }
     </style>
 
     <title>Home</title>
   </head>
   <body>
     <header>
-        <h1>IIT Kanpur</h1>
+        <h1>COAS</h1>
     </header>
     <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
@@ -72,7 +81,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active pl-5 pe-5" aria-current="page" href="{% url 'auto:home' %}">Home</a>
+                <a class="nav-link pl-5 pe-5" href="{% url 'auto:home' %}">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle pl-5 pe-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -117,7 +126,7 @@
               <a class="nav-link pl-5 pe-5" href="{% url 'auto:cart' %}"><i class="bi bi-cart3 size"></i></a>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <a class="nav-link dropdown-toggle pl-5 pe-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="profile.html"><i class="bi bi-person-circle size"> {{username}} </i></a>
+                <a class="nav-link dropdown-toggle pl-5 pe-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="profile.html"><i class="bi bi-person-circle size"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end scrollable-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="{% url 'auto:profile' %}">View Profile</a></li>
                   <li><hr class="dropdown-divider"></li>

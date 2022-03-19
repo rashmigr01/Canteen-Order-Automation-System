@@ -2,10 +2,19 @@
 
 {% block content %}
 
+<style>
+  .align{
+    text-align: center;
+  }
+  .margin{
+    margin-left: 40%;
+  }
+</style>
+
   <main>
     <div class="row pb-5">
       {% for order in orders %}
-      <div class="col-sm-4">
+      <div class="col-sm-3">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">{{order.item.item}}</h5>
@@ -21,15 +30,19 @@
           </div>
         </div>
       </div>
+      {% if forloop.counter|divisibleby:4 and forloop.counter > 0 %}
+        </div><div class="row pb-5">
+      {% endif %}
       {% endfor %}
-    <div class="card margin" style="width: 18rem;">
+    </div>
+    <div class="card margin align" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">Bill</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        <p class="card-text bold left">Item Name</p><p class="right bold">Price</p>
       </div>
       <ul class="list-group list-group-flush">
         {% for cost in costs %}
-        <li class="list-group-item"><p class="left">{{cost.name}}</p><p class="right">Price: ₹{{cost.cost}}</p></li>
+        <li class="list-group-item"><p class="left">{{cost.name}}</p><p class="right">₹{{cost.cost}}</p></li>
         {% endfor %}
         <li class="list-group-item"><p class="right">Total: ₹{{total}}</p></li>
       </ul>
