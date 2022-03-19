@@ -1,161 +1,18 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% load static %}
+{% extends 'home/base.html' %}
 
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <style>
-        header{
-            padding: 50px;
-            text-align: center;
-            background-color: #4cd123;
-            color: white;
-        }
-        .scrollable-menu {
-            height: auto;
-            max-height: 200px;
-            overflow-x: hidden;
-
-        }
-        .scrollable-menu::-webkit-scrollbar {
-          display: none;
-        }
-        main{
-          padding: 50px 50% 50px 50px;
-          background-image: url("{% static 'home/background_image.png' %}");
-          background-repeat: no-repeat;
-          background-position: center;
-          background-size: 100% 100%;
-          background-attachment: fixed;
-        }
-        footer{
-          background-color: #f8f9fa;
-          text-align: center;
-          height: 50px;
-        }
-        footer a{
-          position: relative;
-          top: 25%;
-          padding: 10px;
-          color: rgba(0,0,0,.55);
-          text-decoration: none;
-        }
-
-        .op p{
-          background-color: white;
-          padding: 15px;
-          border-radius: 10px;
-          opacity: 80%;
-        }
-        .size{
-          font-size: 150%;
-        }
-    </style>
-
-    <title>Home</title>
-  </head>
-  <body>
-    <header>
-        <h1>IIT Kanpur</h1>
-    </header>
-    <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active pl-5 pe-5" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle pl-5 pe-5" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Halls
-                </a>
-                <ul class="dropdown-menu dropdown-menu-end scrollable-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Hall 1</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 2</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 3</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 4</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 5</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 6</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 7</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 8</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 9</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 10</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 11</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 12</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Hall 13</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link pl-5 pe-5" href="#">Orders</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link pl-5 pe-5" href="#">Contact Us</a>
-              </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <a class="nav-link pl-5 pe-5" href="#"><i class="bi bi-cart3 size"></i></a>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <a class="nav-link dropdown-toggle pl-5 pe-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="profile.html"><i class="bi bi-person-circle size"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end scrollable-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">View Profile</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Logout</a></li>
-                </ul>
-            </ul>
-          </div>
-        </div>
-      </nav>
-      <main>
-        <article class="op">
-          <h2>Motivation</h2>
-          <p>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt porro et veniam dignissimos vel quidem, laudantium explicabo facilis, dolore corporis est, commodi reprehenderit dolor quam ullam qui. Libero, voluptate necessitatibus enim molestias incidunt atque quibusdam vero doloribus amet? Possimus fugit sint porro hic tenetur inventore vel totam iure cupiditate nulla voluptate unde enim, molestias doloremque alias quibusdam maxime aliquam modi consequatur quam ducimus iusto? Quasi suscipit reiciendis corporis cupiditate quaerat in excepturi, amet magnam facilis ratione error sit eveniet eligendi, quae sequi unde soluta quo aliquid nobis earum. Id optio repudiandae incidunt ullam alias ratione quisquam facilis, vitae fuga hic.
-          </p>
-        </article>
-        <article class="op">
-        <h2>About Us</h2>
-          <p>
-           Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt porro et veniam dignissimos vel quidem, laudantium explicabo facilis, dolore corporis est, commodi reprehenderit dolor quam ullam qui. Libero, voluptate necessitatibus enim molestias incidunt atque quibusdam vero doloribus amet? Possimus fugit sint porro hic tenetur inventore vel totam iure cupiditate nulla voluptate unde enim, molestias doloremque alias quibusdam maxime aliquam modi consequatur quam ducimus iusto? Quasi suscipit reiciendis corporis cupiditate quaerat in excepturi, amet magnam facilis ratione error sit eveniet eligendi, quae sequi unde soluta quo aliquid nobis earum. Id optio repudiandae incidunt ullam alias ratione quisquam facilis, vitae fuga hic.
-          </p>
-        </article>
-      </main>
-      <footer>
-        <a href="#">@CopyRights</a>
-        <a href="#">Terms & Privacy</a>
-      </footer>
-
-
-    <!-- Optional JavaScript; choose one of the two! -->
-
-    <!-- Option 1: Bootstrap Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
-    <!-- Option 2: Separate Popper and Bootstrap JS -->
-    <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
-  </body>
-</html>
+{% block content %}
+  <main>
+    <article class="op">
+      <h2>Motivation</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt porro et veniam dignissimos vel quidem, laudantium explicabo facilis, dolore corporis est, commodi reprehenderit dolor quam ullam qui. Libero, voluptate necessitatibus enim molestias incidunt atque quibusdam vero doloribus amet? Possimus fugit sint porro hic tenetur inventore vel totam iure cupiditate nulla voluptate unde enim, molestias doloremque alias quibusdam maxime aliquam modi consequatur quam ducimus iusto? Quasi suscipit reiciendis corporis cupiditate quaerat in excepturi, amet magnam facilis ratione error sit eveniet eligendi, quae sequi unde soluta quo aliquid nobis earum. Id optio repudiandae incidunt ullam alias ratione quisquam facilis, vitae fuga hic.
+      </p>
+    </article>
+    <article class="op">
+    <h2>About Us</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt porro et veniam dignissimos vel quidem, laudantium explicabo facilis, dolore corporis est, commodi reprehenderit dolor quam ullam qui. Libero, voluptate necessitatibus enim molestias incidunt atque quibusdam vero doloribus amet? Possimus fugit sint porro hic tenetur inventore vel totam iure cupiditate nulla voluptate unde enim, molestias doloremque alias quibusdam maxime aliquam modi consequatur quam ducimus iusto? Quasi suscipit reiciendis corporis cupiditate quaerat in excepturi, amet magnam facilis ratione error sit eveniet eligendi, quae sequi unde soluta quo aliquid nobis earum. Id optio repudiandae incidunt ullam alias ratione quisquam facilis, vitae fuga hic.
+      </p>
+    </article>
+  </main>
+{% endblock %}

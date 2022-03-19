@@ -3,11 +3,13 @@ from turtle import update
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import UserExt
+from .models import MenuItem, Order, UserExt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 def register(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("auto:home"))
     if request.method == "POST":
         user = User.objects.create_user(username = request.POST["usern"], email = request.POST["email"], password= request.POST["passw"])
         #user = User( username = request.POST["usern"], email = request.POST["email"], password= request.POST["passw"])
@@ -19,7 +21,7 @@ def register(request):
         userEx.save()
 
         login(request, user)
-        redirect('home')
+        return HttpResponseRedirect(reverse("auto:home"))
         # messages.success(request,'You are Regestered Successfully!!')
     return render(request, 'home/registration.html')
 
@@ -45,4 +47,16 @@ def Logout(request):
     return HttpResponseRedirect(reverse("auto:login"))
 
 def home(request):
-    return render(request, 'home/home.html')
+    context = {"username" : request.user.username}
+    return render(request, 'home/home.html', context)
+
+def profile(request):
+    context = {
+        'ext' : UserExt.objects.get(user = request.user)
+        }
+    return render(request, 'home/profile.html', context)
+
+def menu(request, hall):
+    items = MenuItem.objects.filter(hall = hall)
+    context = {'items':items}
+    return render(request, 'home/menu.html', context)

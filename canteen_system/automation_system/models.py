@@ -7,20 +7,26 @@ class UserExt(models.Model):
     phone = models.BigIntegerField(null=True)
     isStaff = models.BooleanField(null=True)
 
+    def __str__(self) -> str:
+        return self.user.username
+
 
 class MenuItem(models.Model):
-    hall = models.CharField(null=True, max_length=10)
+    hall = models.IntegerField(null=True)
     item = models.CharField(null=True, max_length=50)
     price = models.IntegerField(null=True)
     avail = models.BooleanField(null=True)
     isveg = models.BooleanField(null=True)
 
+    def __str__(self) -> str:
+        return self.item
 
-class Orders(models.Model):
-    Hall = models.IntegerField
-    Item = models.CharField
-    Quantity = models.IntegerField
-    D_T = models.CharField(max_length= 1)
-    PayMode = models.CharField(max_length= 1)
-    PayStatus = models.CharField(max_length= 1)
-    Customer = models.ManyToManyField("UserExt")
+
+class Order(models.Model):
+    hall = models.IntegerField(null=True)
+    item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    quantity = models.IntegerField
+    dt = models.IntegerField(null=True)
+    paymode = models.CharField(max_length= 1)
+    paystatus = models.CharField(max_length= 1)
+    users = models.ForeignKey(User, on_delete=models.CASCADE)

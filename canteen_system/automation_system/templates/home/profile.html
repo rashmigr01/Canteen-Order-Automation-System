@@ -1,0 +1,58 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+<style>
+  .bold{
+        font-weight: bold;
+      }
+
+  .size{
+    font-size: 150%;
+  }
+</style>
+
+  <main>
+    <div class="container">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10 ">
+                <div class="row z-depth-3">
+                    <div class="col-sm-4 bg-info rounded-left">
+                        <div class="card-block text-center text-white">
+                            <i class="bi bi-person-circle size"></i>
+                            <h2 class="font-weight-bold mt-4">{{ext.user.username}}</h2>
+                            {% if user.isStaff %}
+                            <p>Staff</p>
+                            {% else %}
+                            <p>Student</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-sm-8 bg-white roundedi-right pb-5 px-5">
+                      <h3 class="mt-3 text-center">Profile</h3>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <p class="bold">Email:</p>
+                          <h6 class="text-muted">{{user.email}}</h6>
+                        </div>
+                        <div class="col-sm-6">
+                          <p class="bold">Phone:</p>
+                          <h6 class="text-muted">{{ext.phone}}</h6>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-6">
+                          <p class="bold">Roll No:</p>
+                          <h6 class="text-muted">{{ext.roll}}</h6>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </main>
+
+{% endblock %}
