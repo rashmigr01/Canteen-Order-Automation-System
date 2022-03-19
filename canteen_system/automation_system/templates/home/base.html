@@ -107,14 +107,14 @@
                 </ul>
               </li>
               <li class="nav-item">
-                <a class="nav-link pl-5 pe-5" href="#">Orders</a>
+                <a class="nav-link pl-5 pe-5" href="{% url 'auto:orders' %}">Orders</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link pl-5 pe-5" href="#">Contact Us</a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <a class="nav-link pl-5 pe-5" href="#"><i class="bi bi-cart3 size"></i></a>
+              <a class="nav-link pl-5 pe-5" href="{% url 'auto:cart' %}"><i class="bi bi-cart3 size"></i></a>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <a class="nav-link dropdown-toggle pl-5 pe-5" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false" href="profile.html"><i class="bi bi-person-circle size"> {{username}} </i></a>

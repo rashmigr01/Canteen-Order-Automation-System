@@ -1,0 +1,22 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+  <main>
+    {% for order in orders %}
+    <div class="row pb-5">
+      <div class="col-sm-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{order.item.item}}</h5>
+            <p class="card-text">Quantity : {{order.quantity}} </p>
+            <p class="card-text">Price : {{order.item.price}} </p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </main>
+
+{% endblock %}

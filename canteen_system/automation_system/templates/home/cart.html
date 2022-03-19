@@ -1,0 +1,43 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+  <main>
+    <div class="row pb-5">
+      {% for order in orders %}
+      <div class="col-sm-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{order.item.item}}</h5>
+            <p class="card-text">Price: ₹{{order.item.price}}</p>
+            <form action="{% url 'auto:savecart' order.id %}" method="post" >
+              {% csrf_token %}
+              Quantity:
+              <input id=demoInput type=number min=0 max=100 name="quant" value={{order.quantity}}>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <input type="submit" class="btn btn-primary" value="Save">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    <div class="card margin" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Bill</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% for cost in costs %}
+        <li class="list-group-item"><p class="left">{{cost.name}}</p><p class="right">Price: ₹{{cost.cost}}</p></li>
+        {% endfor %}
+        <li class="list-group-item"><p class="right">Total: ₹{{total}}</p></li>
+      </ul>
+      <div class="card-body align">
+        <a href="#" class="btn btn-primary">Pay Now</a>
+        <a href="#" class="btn btn-primary">Pay Later</a>
+      </div>
+    </div>
+  </main>
+  
+{% endblock %}

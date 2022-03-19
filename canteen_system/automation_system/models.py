@@ -28,14 +28,14 @@ class Order(models.Model):
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=True)
     dt = models.IntegerField(null=True)
-    paymode = models.CharField(max_length= 1)
-    paystatus = models.CharField(max_length= 1)
+    paymode = models.IntegerField(null=True)
+    paystatus = models.IntegerField(null=True)
     user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
 
 class Reviews(models.Model):
-    Reviewer = models.ForeignKey(UserExt, on_delete=models.CASCADE)
-    Rating = models.IntegerField(null=True)
-    TextMessage = models.CharField(max_length = 200)
+    user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
+    rating = models.IntegerField(null=True)
+    textmess = models.CharField(max_length = 200)
     order = models.ForeignKey(Order, on_delete = models.CASCADE)
 
 

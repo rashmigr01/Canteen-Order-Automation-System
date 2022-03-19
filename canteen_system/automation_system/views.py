@@ -1,4 +1,5 @@
 import imp
+import re
 from turtle import update
 from django.shortcuts import redirect, render
 from django.urls import reverse
@@ -60,3 +61,47 @@ def menu(request, hall):
     items = MenuItem.objects.filter(hall = hall)
     context = {'items':items}
     return render(request, 'home/menu.html', context)
+
+def orders(request):
+    ords = Order.objects.filter(user = UserExt.objects.get(user = request.user), paystatus=1)
+    context={
+        'orders': ords
+    }
+    return render(request, 'home/orders.html', context)
+
+def tocart(request,hall, itemId):
+    item = MenuItem.objects.get(id=int(itemId))
+    order = Order(hall = hall, item = item, quantity = 1, dt = 0, paymode = 0, paystatus=0, user = UserExt.objects.get(user = request.user))
+    order.save()
+    return HttpResponseRedirect(reverse('auto:cart'))
+
+def savecart(request, orderId):
+    if request.method == "POST":
+        order = Order.objects.get(id = orderId)
+        if int(request.POST['quant']) <= 0:
+            order.delete()
+        else:
+            order.quantity = int(request.POST['quant'])
+            order.save()
+
+    return HttpResponseRedirect(reverse('auto:cart'))
+
+
+def cart(request):
+    ords = Order.objects.filter(user = UserExt.objects.get(user = request.user), paystatus = 0)
+    lis = []
+    tot = 0
+    for i in ords:
+        di = {}
+        t = i.item.price* i.quantity
+        di['name'] = i.item.item
+        di['cost'] = t
+        tot+= t
+        lis.append(di)
+
+    context = {
+        'orders' : ords,
+        'costs' : lis,
+        'total' : tot,
+    }
+    return render(request, 'home/cart.html', context)
