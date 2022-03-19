@@ -14,7 +14,7 @@ class MenuItem(models.Model):
     price = models.IntegerField(null=True)
     avail = models.BooleanField(null=True)
     isveg = models.BooleanField(null=True)
-
+    rating = 
 
 class Orders(models.Model):
     Hall = models.IntegerField
@@ -23,4 +23,15 @@ class Orders(models.Model):
     D_T = models.CharField(max_length= 1)
     PayMode = models.CharField(max_length= 1)
     PayStatus = models.CharField(max_length= 1)
-    Customer = models.ManyToManyField("UserExt")
+    Customer = models.ForeignKey(UserExt, on_delete = models.CASCADE)
+    # OrderNo = models.IntegerField
+
+    # def save(self):
+    #     self.OrderNo = 100* self.Customer.roll + self.
+
+class Reviews(models.Model):
+     Reviewer = models.ManyToManyField("UserExt")
+     Rating = models.IntegerField
+     TextMessage = models.CharField(max_length = 200)
+     order = models.OneToOneField(Orders, 
+          on_delete = models.CASCADE, primary_key = True
