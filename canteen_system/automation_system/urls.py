@@ -9,6 +9,7 @@ app_name = "auto"
 urlpatterns = [
     path('register', views.register, name='register'),
     path('', views.login_user, name= "login"),
-    path('logout', views.Logout, name= "logout")
+    path('logout', views.Logout, name= "logout"),
+    path('home', views.home, name='home')
 ]
 

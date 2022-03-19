@@ -6,3 +6,11 @@ class UserExt(models.Model):
     roll = models.IntegerField(null=True)
     phone = models.BigIntegerField(null=True)
     isStaff = models.BooleanField(null=True)
+
+
+class MenuItem(models.Model):
+    hall = models.CharField(null=True, max_length=10)
+    item = models.CharField(null=True, max_length=50)
+    price = models.IntegerField(null=True)
+    avail = models.BooleanField(null=True)
+    isveg = models.BooleanField(null=True)

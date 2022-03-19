@@ -1,6 +1,8 @@
+import imp
 from turtle import update
 from django.shortcuts import redirect, render
-from django.http import HttpResponse
+from django.urls import reverse
+from django.http import HttpResponse, HttpResponseRedirect
 from .models import UserExt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
@@ -15,10 +17,15 @@ def register(request):
 
         userEx = UserExt(user = user, roll = int(request.POST["roll"]), phone = int(request.POST["phone"]), isStaff = True if request.POST["isStaff"] == "True" else False)
         userEx.save()
+
+        login(request, user)
+        redirect('home')
         # messages.success(request,'You are Regestered Successfully!!')
     return render(request, 'home/registration.html')
 
 def login_user(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("auto:home"))
     if request.method =="POST":
         
         username = request.POST['username']
@@ -27,7 +34,7 @@ def login_user(request):
         print(user)
         if user is not None:
             login(request,user)
-            return HttpResponse("Logged In")
+            return HttpResponseRedirect(reverse("auto:home"))
         else:
             return HttpResponse("Ex occured")
 
@@ -35,4 +42,7 @@ def login_user(request):
 
 def Logout(request):
     logout(request)
-    return HttpResponse("Logged Out.")
+    return HttpResponseRedirect(reverse("auto:login"))
+
+def home(request):
+    return render(request, 'home/home.html')
