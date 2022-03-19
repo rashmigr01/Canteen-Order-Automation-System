@@ -1,0 +1,128 @@
+.head img{
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin-left: 15%;
+    clip-path: circle(50% at 50% 50%);
+}
+
+.head h1{
+    position: relative;
+    top: 7px;
+    left: 10px;
+}
+
+#l{
+    clear: left;
+    text-align: center;
+    padding: 0 0 20px 0;
+    border-bottom: 1px solid silver;
+}
+.head{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    position: absolute;
+    top: 12%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    border-radius: 10px;  
+}
+
+body{
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.body{
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: 400px;
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px #adadad;
+}
+
+.body form{
+    padding: 0 40px;
+    box-sizing: border-box;
+}
+
+form .txt_field{
+    position: relative;
+    border-bottom: 2px solid #adadad;
+    margin: 30px 0;
+}
+
+.txt_field input{
+    width: 100%;
+    padding: 0 5px;
+    height: 40px;
+    font-size: 16px;
+    border: none;
+    background: none;
+    outline: none;
+}
+
+.txt_field span::before{
+    content: '';
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: #4cd123;
+}
+
+.pass{
+    width: fit-content;
+    margin: -5px 0px 20px 5px;
+    cursor: pointer;
+}
+
+.pass a{
+    color: #a6a6a6;
+    text-decoration: none;
+}
+
+.pass:hover a{
+    text-decoration: underline;
+}
+
+input[type="submit"]{
+    margin-bottom: 10%;;
+    width: 25%;
+    height: 25px;
+    border: 4px ;
+    float: right;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    background: #4cd123;
+    font-weight: 700;
+    color: white;
+}
+
+input[type="submit"]:hover{
+    text-decoration: underline;
+}
+
+.signup_link{
+    width: fit-content;
+    margin: -5px 0px 20px 5px;
+    color: #a6a6a6;
+    /* cursor: pointer; */
+}
+
+.signup_link a{
+    color: #a6a6a6;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.signup_link a:hover{
+    text-decoration: underline;
+}
