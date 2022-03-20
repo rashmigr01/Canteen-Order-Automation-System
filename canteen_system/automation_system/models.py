@@ -32,8 +32,7 @@ class Order(models.Model):
     paystatus = models.IntegerField(null=True)
     user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
 
-class Reviews(models.Model):
+class Review(models.Model):
     user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
     rating = models.IntegerField(null=True)
-    textmess = models.CharField(max_length = 200)
-    order = models.ForeignKey(Order, on_delete = models.CASCADE)
+    item = models.ForeignKey(MenuItem, on_delete = models.CASCADE)

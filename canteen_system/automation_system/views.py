@@ -4,7 +4,7 @@ from turtle import update
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import MenuItem, Order, Reviews, UserExt
+from .models import MenuItem, Order, Review, UserExt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -55,7 +55,21 @@ def profile(request):
 
 def menu(request, hall):
     items = MenuItem.objects.filter(hall = hall)
-    context = {'items':items}
+
+    rat = []
+
+    for item in items:
+        avg = {'rating' : 0}
+        it = Review.objects.filter(item = item)
+        for i in it:
+            avg['rating'] += i.rating
+        avg['rating'] = (avg['rating']/len(it)) if len(it) > 0 else 0
+        rat.append(avg)
+
+    context = {
+        'items':items,
+        'ratings': rat
+        }
     return render(request, 'home/menu.html', context)
 
 def orders(request):
@@ -119,8 +133,6 @@ def paycart(request, paystat):
         else:
             i.paystatus = 0
         i.save()
-
-
 
     return HttpResponseRedirect(reverse('auto:orders'))
 
