@@ -2,7 +2,24 @@
 
 {% block content %}
 
+<style>
+  .align{
+    text-align: center;
+  }
+  .margin{
+    margin-left: 40%;
+  }
+</style>
+
   <main>
+    <div class="card margin align mb-5" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Unpaid Bills</h5>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item"><p>Total: ₹{{total}}</p></li>
+      </ul>
+    </div>
     <div class="row pb-5">
       {% for order in orders %}
       <div class="col-sm-2">

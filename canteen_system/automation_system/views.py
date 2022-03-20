@@ -13,17 +13,14 @@ def register(request):
         return HttpResponseRedirect(reverse("auto:home"))
     if request.method == "POST":
         user = User.objects.create_user(username = request.POST["usern"], email = request.POST["email"], password= request.POST["passw"])
-        #user = User( username = request.POST["usern"], email = request.POST["email"], password= request.POST["passw"])
         user.save()
 
-        print(int(request.POST["roll"]))
 
         userEx = UserExt(user = user, roll = int(request.POST["roll"]), phone = int(request.POST["phone"]), isStaff = True if request.POST["isStaff"] == "True" else False)
         userEx.save()
 
         login(request, user)
         return HttpResponseRedirect(reverse("auto:home"))
-        # messages.success(request,'You are Regestered Successfully!!')
     return render(request, 'home/registration.html')
 
 def login_user(request):
@@ -34,7 +31,6 @@ def login_user(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        print(user)
         if user is not None:
             login(request,user)
             return HttpResponseRedirect(reverse("auto:home"))
@@ -63,9 +59,16 @@ def menu(request, hall):
     return render(request, 'home/menu.html', context)
 
 def orders(request):
-    ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 0).order_by('-id')
-    context={
-        'orders': ords
+    ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 0).order_by('-id')    
+    tot = 0
+    for i in ords:
+        t = i.item.price* i.quantity
+        if i.paystatus == '2':
+            tot+= t
+
+    context = {
+        'orders' : ords,
+        'total' : tot,
     }
     return render(request, 'home/orders.html', context)
 
@@ -111,7 +114,6 @@ def paycart(request, paystat):
     
     for i in ords:
         if int(paystat) == 1:
-            print("HOHO")
             i.paystatus = 1
         elif int(paystat) == 2:
             i.paystatus = 2
@@ -122,3 +124,6 @@ def paycart(request, paystat):
 
 
     return HttpResponseRedirect(reverse('auto:orders'))
+
+def contact_us(request):
+    return render(request, 'home/contact_us.html')
