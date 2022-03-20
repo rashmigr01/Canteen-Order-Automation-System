@@ -6,7 +6,12 @@
   .card-body p{
     margin-bottom: 4px;
   }
-
+  .ud{
+    text-decoration: none;
+  }
+  .ud:hover{
+    text-decoration: underline;
+  }
 </style>
 
   <main>
@@ -19,7 +24,8 @@
               <p class="card-text">Price : Rs {{item.price}}</p>
               <p class="card-text">Availibility : {{item.avail}}</p>
               <p class="card-text">Is Veg : {{item.isveg}}</p>
-              <a href="{% url 'auto:tocart' item.hall item.id %}" class="btn btn-primary">Add To Cart</a>
+              <a href="#" class="text-muted ud">Ratings</a>
+              <a href="{% url 'auto:tocart' item.hall item.id %}" class="btn btn-primary mt-1">Add To Cart</a>
             </div>
           </div>
         </div>

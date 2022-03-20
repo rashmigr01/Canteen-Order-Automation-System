@@ -33,6 +33,11 @@
             {% else %}
             <p class="card-text">PayStatus : Unpaid </p>
             {% endif %}
+            <form action="#" method="post" >
+              {% csrf_token %}
+              Rating:
+              <input id=demoInput type=number min=0 max=5 name="rate" value="{{Reviews.rating}}">
+            <a href="#" class="btn btn-primary right mt-2">Rate</a>
           </div>
         </div>
       </div>

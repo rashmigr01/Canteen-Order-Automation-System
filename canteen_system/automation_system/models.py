@@ -37,5 +37,3 @@ class Reviews(models.Model):
     rating = models.IntegerField(null=True)
     textmess = models.CharField(max_length = 200)
     order = models.ForeignKey(Order, on_delete = models.CASCADE)
-
-

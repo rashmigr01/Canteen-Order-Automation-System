@@ -4,7 +4,7 @@ from turtle import update
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import MenuItem, Order, UserExt
+from .models import MenuItem, Order, Reviews, UserExt
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
@@ -88,7 +88,6 @@ def savecart(request, orderId):
             order.save()
 
     return HttpResponseRedirect(reverse('auto:cart'))
-
 
 def cart(request):
     ords = Order.objects.filter(user = UserExt.objects.get(user = request.user), paystatus = 0)
