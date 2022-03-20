@@ -8,8 +8,24 @@ Aim: To digitalise and automate the canteen order system
 - Digital payment details are made available in the monthly bill, and the regular order interface for smooth transactions.
 
 ## Project Setup
-- Clone The repository
-- Create virtual environment `python -m venv env`
-- Activate the Virtual Environment.
-- Install all the dependencies `pip install requirements.txt`
-- Try running server `python manage.py runserver`
+- Clone The repository 
+```bash
+  git clone https://github.com/rashmigr01/Canteen-Order-Automation-System.git
+```
+- Create virtual environment 
+```bash
+  python -m venv env
+```
+- Activate the Virtual Environment 
+```bash
+  .\env\Scripts\Activate.ps1
+```
+- Install all the dependencies 
+```bash
+  pip install requirements.txt
+```
+- Navigate to the folder containing the file `manage.py`
+- Start the server 
+```bash
+  python manage.py runserver
+```
