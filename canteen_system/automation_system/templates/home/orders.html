@@ -3,20 +3,27 @@
 {% block content %}
 
   <main>
-    {% for order in orders %}
     <div class="row pb-5">
-      <div class="col-sm-12">
+      {% for order in orders %}
+      <div class="col-sm-2">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">{{order.item.item}}</h5>
             <p class="card-text">Quantity : {{order.quantity}} </p>
-            <p class="card-text">Price : {{order.item.price}} </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <p class="card-text">Price : ₹{{order.item.price}} </p>
+            {% if order.paystatus == '1' %}
+            <p class="card-text">PayStatus : Paid </p>
+            {% else %}
+            <p class="card-text">PayStatus : Unpaid </p>
+            {% endif %}
           </div>
         </div>
       </div>
+      {% if forloop.counter|divisibleby:6 and forloop.counter > 0 %}
+        </div><div class="row pb-5">
+      {% endif %}
+      {% endfor %}
     </div>
-    {% endfor %}
   </main>
 
 {% endblock %}

@@ -63,7 +63,7 @@ def menu(request, hall):
     return render(request, 'home/menu.html', context)
 
 def orders(request):
-    ords = Order.objects.filter(user = UserExt.objects.get(user = request.user), paystatus=1)
+    ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 0).order_by('-id')
     context={
         'orders': ords
     }
@@ -105,3 +105,20 @@ def cart(request):
         'total' : tot,
     }
     return render(request, 'home/cart.html', context)
+
+def paycart(request, paystat):
+    ords = Order.objects.filter(user = UserExt.objects.get(user = request.user), paystatus = 0)
+    
+    for i in ords:
+        if int(paystat) == 1:
+            print("HOHO")
+            i.paystatus = 1
+        elif int(paystat) == 2:
+            i.paystatus = 2
+        else:
+            i.paystatus = 0
+        i.save()
+
+
+
+    return HttpResponseRedirect(reverse('auto:orders'))

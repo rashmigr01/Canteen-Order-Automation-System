@@ -16,6 +16,7 @@ urlpatterns = [
     path('home/<int:hall>/<int:itemId>', views.tocart, name='tocart'),
     path('home/cart/<int:orderId>', views.savecart, name='savecart'),
     path('home/cart', views.cart, name='cart'),
-    path('home/orders', views.orders, name='orders')
+    path('home/orders', views.orders, name='orders'),
+    path('home/cart/paycart/<int:paystat>', views.paycart, name='paycart'),
 ]
 

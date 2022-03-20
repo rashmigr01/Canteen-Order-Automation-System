@@ -47,8 +47,8 @@
         <li class="list-group-item"><p class="right">Total: ₹{{total}}</p></li>
       </ul>
       <div class="card-body align">
-        <a href="#" class="btn btn-primary">Pay Now</a>
-        <a href="#" class="btn btn-primary">Pay Later</a>
+        <a href="{% url 'auto:paycart' 1 %}" class="btn btn-primary">Pay Now</a>
+        <a href="{% url 'auto:paycart' 2 %}" class="btn btn-primary">Pay Later</a>
       </div>
     </div>
   </main>
