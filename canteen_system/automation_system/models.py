@@ -1,6 +1,8 @@
+from itertools import count
 from tkinter import CASCADE
 from django.db import models
 from django.contrib.auth.models import User
+from datetime import datetime
 
 class UserExt(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -31,6 +33,16 @@ class Order(models.Model):
     paymode = models.IntegerField(null=True)
     paystatus = models.IntegerField(null=True)
     user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
+    DateOfOrder = models.DateField(auto_now_add=True)
+
+    @property
+    def orderId(self):
+        x = Order.objects.filter(DateOfOrder = datetime.now() ).count()
+        return "%s/%s%s%s/%s" % (self.hall,self.DateOfOrder.strftime("%Y"),self.DateOfOrder.strftime("%m"),self.DateOfOrder.strftime("%d"),x)
+        
+
+    def __str__(self) -> str:
+        return self.orderId
 
 class Review(models.Model):
     user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
