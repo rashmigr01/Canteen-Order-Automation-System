@@ -28,16 +28,19 @@
             <h5 class="card-title">{{order.item.item}}</h5>
             <p class="card-text">Quantity : {{order.quantity}} </p>
             <p class="card-text">Price : ₹{{order.item.price}} </p>
-            {% if order.paystatus == '1' %}
+            {% if order.paystatus == 1 %}
             <p class="card-text">PayStatus : Paid </p>
+            {% elif order.paystatus == 3 %}
+            <p class="card-text">PayStatus : Waiting </p>
             {% else %}
             <p class="card-text">PayStatus : Unpaid </p>
             {% endif %}
-            <form action="#" method="post" >
+            <form action="{% url 'auto:savereview' order.item.id %}" method="post" >
               {% csrf_token %}
               Rating:
               <input id=demoInput type=number min=0 max=5 name="rate" value="{{Reviews.rating}}">
-            <a href="#" class="btn btn-primary right mt-2">Rate</a>
+              <input type="submit" class="btn btn-primary right" value="Rate">
+            </form>
           </div>
         </div>
       </div>

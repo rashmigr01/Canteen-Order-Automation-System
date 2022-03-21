@@ -65,7 +65,7 @@ def menu(request, hall):
         it = Review.objects.filter(item = item)
         for i in it:
             avg['rating'] += i.rating
-        avg['rating'] = (avg['rating']/len(it)) if len(it) > 0 else 0
+        avg['rating'] = (avg['rating']/len(it)) if len(it) > 0 else " --- "
         rat.append(avg)
 
     context = {
@@ -79,7 +79,7 @@ def orders(request):
     tot = 0
     for i in ords:
         t = i.item.price* i.quantity
-        if i.paystatus == '2':
+        if i.paystatus == 2 or i.paystatus ==3:
             tot+= t
 
     context = {
@@ -104,6 +104,17 @@ def savecart(request, orderId):
             order.save()
 
     return HttpResponseRedirect(reverse('auto:cart'))
+
+def savereview(request, itemId):
+    rev = Review.objects.filter(user = UserExt.objects.get(user = request.user), item = MenuItem.objects.get(id = itemId))
+    if len(rev) != 0:
+        rev[0].rating = int(request.POST['rate'])
+        rev[0].save()
+    else:
+        rev = Review(user = UserExt.objects.get(user = request.user), rating = int(request.POST['rate']), item =  MenuItem.objects.get(id = itemId))
+        rev.save()
+
+    return HttpResponseRedirect(reverse('auto:orders'))
 
 def cart(request):
     ords = Order.objects.filter(user = UserExt.objects.get(user = request.user), paystatus = 0)
@@ -132,6 +143,8 @@ def paycart(request, paystat):
             i.paystatus = 1
         elif int(paystat) == 2:
             i.paystatus = 2
+        elif int(paystat) == 3:
+            i.paystatus = 3
         else:
             i.paystatus = 0
         i.save()
