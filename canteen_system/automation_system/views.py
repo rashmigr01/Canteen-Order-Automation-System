@@ -46,8 +46,12 @@ def Logout(request):
     return HttpResponseRedirect(reverse("auto:login"))
 
 def home(request):
-    context = {"username" : request.user.username}
-    return render(request, 'home/home.html', context)
+    if UserExt.objects.get(user = request.user).isStaff == False:
+        context = {"username" : request.user.username}
+        return render(request, 'home/home.html', context)
+    else:
+        context = {"username" : request.user.username}
+        return render(request, 'home/home_owner.html', context)
 
 def profile(request):
     context = {
@@ -60,19 +64,34 @@ def menu(request, hall):
 
     rat = []
 
-    for item in items:
-        avg = {'rating' : 0}
-        it = Review.objects.filter(item = item)
-        for i in it:
-            avg['rating'] += i.rating
-        avg['rating'] = (avg['rating']/len(it)) if len(it) > 0 else " --- "
-        rat.append(avg)
+    if UserExt.objects.get(user = request.user).isStaff == False:
+        for item in items:
+            avg = {'rating' : 0}
+            it = Review.objects.filter(item = item)
+            for i in it:
+                avg['rating'] += i.rating
+            avg['rating'] = (avg['rating']/len(it)) if len(it) > 0 else " --- "
+            rat.append(avg)
 
-    context = {
-        'items':items,
-        'ratings': rat
-        }
-    return render(request, 'home/menu.html', context)
+        context = {
+            'items':items,
+            'ratings': rat
+            }
+        return render(request, 'home/menu.html', context)
+    else:
+        for item in items:
+            avg = {'rating' : 0}
+            it = Review.objects.filter(item = item)
+            for i in it:
+                avg['rating'] += i.rating
+            avg['rating'] = (avg['rating']/len(it)) if len(it) > 0 else " --- "
+            rat.append(avg)
+
+        context = {
+            'items':items,
+            'ratings': rat
+            }
+        return render(request, 'home/menu_owner.html', context)
 
 def orders(request):
     ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 0).order_by('-id')    
