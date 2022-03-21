@@ -17,6 +17,8 @@
   <main>
     <div class="row pb-5">
       {% for item in items %}
+      {% for it in ratings %}
+      {% if forloop.counter == forloop.parentloop.counter %}
         <div class="col-sm-2">
           <div class="card p-2">
             <div class="card-body">
@@ -24,7 +26,8 @@
               <p class="card-text">Price : Rs {{item.price}}</p>
               <p class="card-text">Availibility : {{item.avail}}</p>
               <p class="card-text">Is Veg : {{item.isveg}}</p>
-              <a href="#" class="text-muted ud">Ratings</a>
+              <p class="card-text">Averate Rating : {{it.rating}}</p>
+              <!-- <a href="#" class="text-muted ud">Ratings</a> -->
               <a href="{% url 'auto:tocart' item.hall item.id %}" class="btn btn-primary mt-1">Add To Cart</a>
             </div>
           </div>
@@ -32,6 +35,8 @@
         {% if forloop.counter|divisibleby:6 and forloop.counter > 0 %}
           </div><div class="row pb-5">
         {% endif %}
+        {% endif %}
+        {% endfor %}
         {% endfor %}
     </div>
   </main>
