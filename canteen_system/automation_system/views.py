@@ -46,8 +46,12 @@ def Logout(request):
     return HttpResponseRedirect(reverse("auto:login"))
 
 def home(request):
-    context = {"username" : request.user.username}
-    return render(request, 'home/home.html', context)
+    if UserExt.objects.get(user = request.user).isStaff == False:
+        context = {"username" : request.user.username}
+        return render(request, 'home/home.html', context)
+    else:
+        context = {"username" : request.user.username}
+        return render(request, 'home/home_owner.html', context)
 
 def profile(request):
     context = {
@@ -60,26 +64,41 @@ def menu(request, hall):
 
     rat = []
 
-    for item in items:
-        avg = {'rating' : 0}
-        it = Review.objects.filter(item = item)
-        for i in it:
-            avg['rating'] += i.rating
-        avg['rating'] = (avg['rating']/len(it)) if len(it) > 0 else 0
-        rat.append(avg)
+    if UserExt.objects.get(user = request.user).isStaff == False:
+        for item in items:
+            avg = {'rating' : 0}
+            it = Review.objects.filter(item = item)
+            for i in it:
+                avg['rating'] += i.rating
+            avg['rating'] = (avg['rating']/len(it)) if len(it) > 0 else " --- "
+            rat.append(avg)
 
-    context = {
-        'items':items,
-        'ratings': rat
-        }
-    return render(request, 'home/menu.html', context)
+        context = {
+            'items':items,
+            'ratings': rat
+            }
+        return render(request, 'home/menu.html', context)
+    else:
+        for item in items:
+            avg = {'rating' : 0}
+            it = Review.objects.filter(item = item)
+            for i in it:
+                avg['rating'] += i.rating
+            avg['rating'] = (avg['rating']/len(it)) if len(it) > 0 else " --- "
+            rat.append(avg)
+
+        context = {
+            'items':items,
+            'ratings': rat
+            }
+        return render(request, 'home/menu_owner.html', context)
 
 def orders(request):
     ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 0).order_by('-id')    
     tot = 0
     for i in ords:
         t = i.item.price* i.quantity
-        if i.paystatus == '2':
+        if i.paystatus == 2 or i.paystatus ==3:
             tot+= t
 
     context = {
@@ -104,6 +123,17 @@ def savecart(request, orderId):
             order.save()
 
     return HttpResponseRedirect(reverse('auto:cart'))
+
+def savereview(request, itemId):
+    rev = Review.objects.filter(user = UserExt.objects.get(user = request.user), item = MenuItem.objects.get(id = itemId))
+    if len(rev) != 0:
+        rev[0].rating = int(request.POST['rate'])
+        rev[0].save()
+    else:
+        rev = Review(user = UserExt.objects.get(user = request.user), rating = int(request.POST['rate']), item =  MenuItem.objects.get(id = itemId))
+        rev.save()
+
+    return HttpResponseRedirect(reverse('auto:orders'))
 
 def cart(request):
     ords = Order.objects.filter(user = UserExt.objects.get(user = request.user), paystatus = 0)
@@ -132,6 +162,8 @@ def paycart(request, paystat):
             i.paystatus = 1
         elif int(paystat) == 2:
             i.paystatus = 2
+        elif int(paystat) == 3:
+            i.paystatus = 3
         else:
             i.paystatus = 0
         i.save()
