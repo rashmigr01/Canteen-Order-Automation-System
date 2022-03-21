@@ -1,0 +1,38 @@
+{% extends 'home/base_owner.html' %}
+
+{% block content %}
+
+<style>
+  .align{
+    text-align: center;
+  }
+</style>
+
+  <main>
+    <div class="row pb-5">
+      {% for order in orders %}
+      <div class="col-sm-2">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{order.user}}</h5>
+            <p class="card-text">Item : {{order.item.item}} </p>
+            <p class="card-text">Quantity : {{order.quantity}} </p>
+            {% if order.paystatus == 3 %}
+            <p class="card-text">PayStatus : Requesting for payment confirmation </p>
+            {% else %}
+            <p class="card-text">PayStatus : Added to monthly bill </p>
+            {% endif %}
+              {% if order.paystatus == 3 %}
+              <button href="{% url 'auto:payconfirm' 0 order.id %}" class="btn btn-primary left mt-1" value="Paid">Paid</button>
+              {% endif %}
+          </div>
+        </div>
+      </div>
+      {% if forloop.counter|divisibleby:6 and forloop.counter > 0 %}
+        </div><div class="row pb-5">
+      {% endif %}
+      {% endfor %}
+    </div>
+  </main>
+
+{% endblock %}

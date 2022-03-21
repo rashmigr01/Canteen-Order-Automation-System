@@ -21,22 +21,24 @@
         <div class="card-body ">
           <h5 class="card-title align">ADD ITEM</h5>
         </div>
-        <form>
-            <p class="card-text">Item Name : <input type=text></p>
-            <p class="card-text">Price : <input type=number min=0 max=1000 ></p>
+        <form action="{% url 'auto:ownermenu' 1 0 %}" method="post">
+          {% csrf_token %}
+            <p class="card-text">Item Name : <input type=text name="item"></p>
+            <p class="card-text">Hall : <input type=number name="hall" min=1 max=13 ></p>
+            <p class="card-text">Price : <input type=number name="price" min=0 max=1000 ></p>
             <p class="card-text">Availibility : 
-                <input type="radio" name="avail">
+                <input type="radio" name="avail" value="1">
                  <label>Yes</label>
-                 <input type="radio" name="avail">
+                 <input type="radio" name="avail" value="0">
                  <label>No</label>
             </p>
             <p class="card-text">Is Veg : 
-                <input type="radio" name="isveg">
+                <input type="radio" name="isveg" value="1">
                  <label>Yes</label>
-                 <input type="radio" name="isveg">
+                 <input type="radio" name="isveg" value="0">
                  <label>No</label>
             </p>
-            <a href="#" class="btn btn-primary right">Add Item</a>
+            <input type="submit" class="btn btn-primary right" value="Add Item">
         </form>
     </div>
     <div class="row pb-5">
@@ -44,23 +46,37 @@
         <div class="col-sm-3">
           <div class="card p-2">
             <div class="card-body">
-                <form>
-                    <p class="card-text">Item Name : <input type=text style="width: 100%;" ></p>
-                    <p class="card-text">Price : <input type=number min=0 max=1000 ></p>
+                <form action="{% url 'auto:ownermenu' 0 item.id %}" method="post" >
+                  {% csrf_token %}
+                    <p class="card-text">Item Name : <input type=text value="{{item.item}}" name="item" style="width: 100%;" ></p>
+                    <p class="card-text">Price : <input type=number value="{{item.price}}" name="price" min=0 max=1000 ></p>
                     <p class="card-text">Availibility : 
-                        <input type="radio" name="avail">
-                         <label for="html">Yes</label>
-                         <input type="radio" name="avail">
-                         <label for="css">No</label>
+                      {% if item.avail == 1 %}
+                        <input type="radio" name="avail" value="1" checked>
+                         <label>Yes</label>
+                         <input type="radio" name="avail" value="0">
+                         <label>No</label>
+                      {% else %}
+                      <input type="radio" name="avail" value="1">
+                      <label>Yes</label>
+                      <input type="radio" name="avail" value="0" checked>
+                      <label>No</label>
+                      {% endif %}
                     </p>
                     <p class="card-text">Is Veg : 
-                        <input type="radio" name="isveg">
+                      {% if item.isveg == 1 %}
+                        <input type="radio" name="isveg" value="1" checked>
                          <label>Yes</label>
-                         <input type="radio" name="isveg">
+                         <input type="radio" name="isveg" value="0">
                          <label>No</label>
+                      {% else %}
+                        <input type="radio" name="isveg" value="1">
+                        <label>Yes</label>
+                        <input type="radio" name="isveg" value="0" checked>
+                        <label>No</label>
+                      {% endif %}
                     </p>
-                    <p class="card-text">Averate Rating : {{it.rating}}</p>
-                    <a href="#" class="btn btn-primary right">Save</a>
+                    <input type="submit" class="btn btn-primary right" value="Save">
                 </form>
             </div>
           </div>

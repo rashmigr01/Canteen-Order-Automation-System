@@ -95,18 +95,29 @@ def menu(request, hall):
         return render(request, 'home/menu_owner.html', context)
 
 def orders(request):
-    ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 0).order_by('-id')    
-    tot = 0
-    for i in ords:
-        t = i.item.price* i.quantity
-        if i.paystatus == 2 or i.paystatus ==3:
-            tot+= t
+    if UserExt.objects.get(user = request.user).isStaff == False:
+        ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 0).order_by('-id')    
+        tot = 0
+        for i in ords:
+            t = i.item.price* i.quantity
+            if i.paystatus == 2 or i.paystatus ==3:
+                tot+= t
 
-    context = {
-        'orders' : ords,
-        'total' : tot,
-    }
-    return render(request, 'home/orders.html', context)
+        context = {
+            'orders' : ords,
+            'total' : tot,
+        }
+        return render(request, 'home/orders.html', context)
+
+    else:
+        ords = Order.objects.all()
+
+        context = {
+            'orders' : ords
+        }
+
+        return render(request, 'home/pending_orders.html', context)
+
 
 def tocart(request,hall, itemId):
     item = MenuItem.objects.get(id=int(itemId))
@@ -168,6 +179,39 @@ def paycart(request, paystat):
         else:
             i.paystatus = 0
         i.save()
+
+    return HttpResponseRedirect(reverse('auto:orders'))
+
+def ownermenu(request, stat, itemId):
+
+     # 0 for edit and 1 for add
+
+    if int(stat) == 0:
+        it = MenuItem.objects.get(id = int(itemId))
+        po = request.POST
+        it.item = po['item']
+        it.price = int(po['price'])
+        it.avail = True if po['avail'] == '1' else False
+        it.isveg = True if po['isveg'] == '1' else False
+
+        it.save()
+
+    else:
+        po = request.POST
+        it = MenuItem(hall = int(po['hall']), item = po['item'], price = int(po['price']), avail = True if po['avail'] == '1' else False, isveg = True if po['isveg'] == '1' else False)
+        it.save()
+    
+    return HttpResponseRedirect(reverse('auto:home'))
+
+def payconfirm(request,stat, orderId):
+    ord = Order.objects.get(id = orderId)
+    # 0 for paid and 1 for done
+    if int(stat) == 0:
+        ord.paystatus = 1
+        ord.save()
+    else:
+        ord.paystatus = 4
+        ord.save()
 
     return HttpResponseRedirect(reverse('auto:orders'))
 

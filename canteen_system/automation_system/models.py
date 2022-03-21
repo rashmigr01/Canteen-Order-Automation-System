@@ -26,6 +26,15 @@ class MenuItem(models.Model):
 
 
 class Order(models.Model):
+
+    '''
+    Payment Status
+    1: Paid
+    2: Unpaid
+    3: Waiting
+    4: Delivered
+    '''
+
     hall = models.IntegerField(null=True)
     item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.IntegerField(null=True)
@@ -33,7 +42,7 @@ class Order(models.Model):
     paymode = models.IntegerField(null=True)
     paystatus = models.IntegerField(null=True)
     user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
-    DateOfOrder = models.DateField(auto_now_add=True)
+    DateOfOrder = models.DateField(auto_now_add=True, null=True)
 
     @property
     def orderId(self):
