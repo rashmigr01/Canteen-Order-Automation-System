@@ -21,7 +21,7 @@ class TestViews(TestCase):
             user = user, 
             roll = 234, 
             phone = 999999999, 
-            isStaff = True )
+            isStaff = False )
 
         Dish = MenuItem.objects.create(
             hall = 6,
@@ -29,14 +29,41 @@ class TestViews(TestCase):
             price = 10,
             avail = True,
             isveg = True)
-
-        order = Order.objects.create(
+        
+        order0 = Order.objects.create(
+            hall = 6,
+            item = Dish,
+            quantity = 2,
+            dt = 1,
+            paymode = 0,
+            paystatus = 0,
+            user = userEx
+        )
+        order1 = Order.objects.create(
             hall = 6,
             item = Dish,
             quantity = 3,
             dt = 1,
             paymode = 1,
             paystatus = 1,
+            user = userEx
+        )
+        order2 = Order.objects.create(
+            hall = 6,
+            item = Dish,
+            quantity = 1,
+            dt = 1,
+            paymode = 1,
+            paystatus = 2,
+            user = userEx
+        )
+        order3 = Order.objects.create(
+            hall = 6,
+            item = Dish,
+            quantity = 1,
+            dt = 1,
+            paymode = 1,
+            paystatus = 3,
             user = userEx
         )
 
@@ -129,7 +156,24 @@ class TestViews(TestCase):
         response = self.client.get('/home/6',{ 'hall':6})
         self.assertIn(b'<p class="card-text">Averate Rating : 4.5</p>', response.content)
 
-    
+    def test_order_unpaid_total(self):
+        response1 = self.client.post(
+            '',{'username' : 'user1' ,'password' : 'user1'}
+        )
+        response = self.client.get('/home/orders')
+        self.assertIn(b'20', response.content)
+        self.assertIn(b'Quantity : 1',response.content)
+
+    def test_cart_display_items(self):
+        response1 = self.client.post(
+            '',{'username' : 'user1' ,'password' : 'user1'}
+        )
+        response = self.client.get('/home/cart')
+        self.assertIn(b'20', response.content)
+
+    def test_contact_us(self):
+        response = self.client.get('/home/contact_us')
+        self.assertEquals(response.status_code, 200)
         
 
 
