@@ -54,6 +54,7 @@ def home(request):
         return render(request, 'home/home_owner.html', context)
 
 def profile(request):
+    #print(request)
     context = {
         'ext' : UserExt.objects.get(user = request.user)
         }
