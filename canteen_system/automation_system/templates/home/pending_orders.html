@@ -1,4 +1,4 @@
-{% extends 'home/base_owner.html' %}
+{% extends 'home/base.html' %}
 
 {% block content %}
 
@@ -24,7 +24,7 @@
             {% else %}
             <p class="card-text">PayStatus : Added to monthly bill </p>
             {% endif %}
-              {% if not order.paystatus == 1 %}
+              {% if order.paystatus == 3 %}
               <a href="{% url 'auto:payconfirm' 0 order.id %}" class="btn btn-primary left mt-1">Paid</a>
               {% endif %}
           </div>

@@ -44,16 +44,17 @@ def Logout(request):
     return HttpResponseRedirect(reverse("auto:login"))
 
 def home(request):
-    if UserExt.objects.get(user = request.user).isStaff == False:
-        context = {"username" : request.user.username}
-        return render(request, 'home/home.html', context)
-    else:
-        context = {"username" : request.user.username}
-        return render(request, 'home/home_owner.html', context)
+    context = {
+        "username" : request.user.username,
+        "staff" : UserExt.objects.get(user = request.user).isStaff
+        }
+    return render(request, 'home/home.html', context)
 
 def profile(request):
     context = {
-        'ext' : UserExt.objects.get(user = request.user)
+        'ext' : UserExt.objects.get(user = request.user),
+        "username" : request.user.username,
+        "staff" : UserExt.objects.get(user = request.user).isStaff
         }
     return render(request, 'home/profile.html', context)
 
@@ -72,8 +73,11 @@ def menu(request, hall):
             rat.append(avg)
 
         context = {
+            'hall': hall,
             'items':items,
-            'ratings': rat
+            'ratings': rat,
+            "username" : request.user.username,
+            "staff" : UserExt.objects.get(user = request.user).isStaff
             }
         return render(request, 'home/menu.html', context)
     else:
@@ -86,8 +90,11 @@ def menu(request, hall):
             rat.append(avg)
 
         context = {
+            'hall': hall,
             'items':items,
-            'ratings': rat
+            'ratings': rat,
+            "username" : request.user.username,
+            "staff" : UserExt.objects.get(user = request.user).isStaff
             }
         return render(request, 'home/menu_owner.html', context)
 
@@ -103,6 +110,8 @@ def orders(request):
         context = {
             'orders' : ords,
             'total' : tot,
+            "username" : request.user.username,
+            "staff" : UserExt.objects.get(user = request.user).isStaff
         }
         return render(request, 'home/orders.html', context)
 
@@ -110,17 +119,18 @@ def orders(request):
         ords = Order.objects.all()
 
         context = {
-            'orders' : ords
+            'orders' : ords,
+            "username" : request.user.username,
+            "staff" : UserExt.objects.get(user = request.user).isStaff
         }
 
         return render(request, 'home/pending_orders.html', context)
-
 
 def tocart(request,hall, itemId):
     item = MenuItem.objects.get(id=int(itemId))
     order = Order(hall = hall, item = item, quantity = 1, dt = 0, paymode = 0, paystatus=0, user = UserExt.objects.get(user = request.user))
     order.save()
-    return HttpResponseRedirect(reverse('auto:cart'))
+    return HttpResponseRedirect(reverse('auto:menu', args=(hall,)))
 
 def savecart(request, orderId):
     if request.method == "POST":
@@ -160,6 +170,8 @@ def cart(request):
         'orders' : ords,
         'costs' : lis,
         'total' : tot,
+        "username" : request.user.username,
+        "staff" : UserExt.objects.get(user = request.user).isStaff
     }
     return render(request, 'home/cart.html', context)
 
@@ -179,7 +191,7 @@ def paycart(request, paystat):
 
     return HttpResponseRedirect(reverse('auto:orders'))
 
-def ownermenu(request, stat, itemId):
+def ownermenu(request, stat, itemId, hall):
 
      # 0 for edit and 1 for add
 
@@ -198,10 +210,10 @@ def ownermenu(request, stat, itemId):
         it = MenuItem(hall = int(po['hall']), item = po['item'], price = int(po['price']), avail = True if po['avail'] == '1' else False, isveg = True if po['isveg'] == '1' else False)
         it.save()
     
-    return HttpResponseRedirect(reverse('auto:home'))
+    return HttpResponseRedirect(reverse('auto:menu', args=(hall,) ))
 
 def payconfirm(request,stat, orderId):
-    print("Payconfirm", stat, orderId)
+    # print("Payconfirm", stat, orderId)
     ord = Order.objects.get(id = orderId)
     # 0 for paid and 1 for done
     if int(stat) == 0:
@@ -214,4 +226,8 @@ def payconfirm(request,stat, orderId):
     return HttpResponseRedirect(reverse('auto:orders'))
 
 def contact_us(request):
-    return render(request, 'home/contact_us.html')
+    context = {
+        "username" : request.user.username,
+        "staff" : UserExt.objects.get(user = request.user).isStaff
+        }
+    return render(request, 'home/contact_us.html', context)

@@ -12,18 +12,18 @@
 </style>
 
   <main>
-    <div class="card margin align mb-5" style="width: 18rem;">
+    <div class="card margin align mb-5 br" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">Unpaid Bills</h5>
       </div>
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item"><p>Total: ₹{{total}}</p></li>
+      <ul class="list-group list-group-flush ">
+        <li class="list-group-item "><p>Total: ₹{{total}}</p></li>
       </ul>
     </div>
     <div class="row pb-5">
       {% for order in orders %}
       <div class="col-sm-2">
-        <div class="card">
+        <div class="card br">
           <div class="card-body">
             <h5 class="card-title">{{order.item.item}}</h5>
             <p class="card-text">Quantity : {{order.quantity}} </p>
@@ -39,7 +39,7 @@
               {% csrf_token %}
               Rating:
               <input id=demoInput type=number min=0 max=5 name="rate" value="{{Reviews.rating}}">
-              <input type="submit" class="btn btn-primary right" value="Rate">
+              <input type="submit" class="btn btn-primary right mt-2" value="Rate">
             </form>
           </div>
         </div>
