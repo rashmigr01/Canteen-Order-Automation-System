@@ -9,7 +9,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 
 def register(request):
-    print(request)
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("auto:home"))
     if request.method == "POST":
@@ -31,7 +30,6 @@ def login_user(request):
         
         username = request.POST['username']
         password = request.POST['password']
-        #print(username,' ',password)
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request,user)
@@ -54,7 +52,6 @@ def home(request):
         return render(request, 'home/home_owner.html', context)
 
 def profile(request):
-    #print(request)
     context = {
         'ext' : UserExt.objects.get(user = request.user)
         }
@@ -204,6 +201,7 @@ def ownermenu(request, stat, itemId):
     return HttpResponseRedirect(reverse('auto:home'))
 
 def payconfirm(request,stat, orderId):
+    print("Payconfirm", stat, orderId)
     ord = Order.objects.get(id = orderId)
     # 0 for paid and 1 for done
     if int(stat) == 0:

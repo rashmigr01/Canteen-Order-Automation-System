@@ -51,9 +51,12 @@ class Order(models.Model):
         
 
     def __str__(self) -> str:
-        return self.orderId
+        return "{} - {}".format(self.item.item, self.quantity)
 
 class Review(models.Model):
     user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
     rating = models.IntegerField(null=True)
     item = models.ForeignKey(MenuItem, on_delete = models.CASCADE)
+
+    def __str__(self) -> str:
+        return "{} - {}".format(self.item.item ,self.user.user.username)
