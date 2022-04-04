@@ -172,6 +172,9 @@ class TestViews(TestCase):
         self.assertIn(b'20', response.content)
 
     def test_contact_us(self):
+        response1 = self.client.post(
+            '',{'username' : 'user1' ,'password' : 'user1'}
+        )
         response = self.client.get('/home/contact_us')
         self.assertEquals(response.status_code, 200)
         
