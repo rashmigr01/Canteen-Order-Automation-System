@@ -106,7 +106,7 @@ class TestViews(TestCase):
             '',{'username' : 'user2' ,'password' : 'user2'}
         )
          response = self.client.get('/home/profile',{ 'ext' : userEx2 })
-         self.assertIn(b'<h3 class="mt-3 text-center">Profile</h3>', response.content)
+         self.assertIn(b'<h6 class="text-muted">user2@gmail.com</h6>', response.content)
 
     def test_ifStaff_access_menu(self):
          user2 = User.objects.create_user(

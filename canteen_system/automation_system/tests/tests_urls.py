@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import resolve, reverse
-from automation_system.views import Logout, login_user,home, cart, contact_us, profile, menu, tocart, orders, savecart ,paycart, register
+from automation_system.views import Logout, login_user,home, cart, contact_us, profile, menu, savereview, tocart, orders, savecart ,paycart, register, savereview, ownermenu, payconfirm
 
 class Test_Urls(TestCase):
     
@@ -35,5 +35,14 @@ class Test_Urls(TestCase):
     
     def test_orders(self):
         self.assertEquals(resolve("/home/orders").func, orders)
+
+    def test_review(self):
+        self.assertEquals(resolve("/home/review/1").func, savereview)
+    
+    def test_ownermenu(self):
+        self.assertEquals(resolve("/owner/1/3/6").func, ownermenu)
+    
+    def test_payconfirm(self):
+        self.assertEquals(resolve("/payconfirm/0/11").func, payconfirm)
     
         
