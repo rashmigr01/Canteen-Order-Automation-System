@@ -9,6 +9,7 @@ class UserExt(models.Model):
     roll = models.IntegerField(null=True)
     phone = models.BigIntegerField(null=True)
     isStaff = models.BooleanField(null=True)
+    hall = models.IntegerField(null=True)
 
     def __str__(self) -> str:
         return self.user.username
