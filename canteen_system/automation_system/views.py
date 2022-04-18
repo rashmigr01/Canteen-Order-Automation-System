@@ -16,7 +16,7 @@ def register(request):
         user.save()
 
 
-        userEx = UserExt(user = user, roll = int(request.POST["roll"]), phone = int(request.POST["phone"]), isStaff = True if request.POST["isStaff"] == "True" else False)
+        userEx = UserExt(user = user, roll = int(request.POST["roll"]), phone = int(request.POST["phone"]), isStaff = False)
         userEx.save()
 
         login(request, user)

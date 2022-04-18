@@ -22,9 +22,8 @@
             <form action="{% url 'auto:savecart' order.id %}" method="post" >
               {% csrf_token %}
               Quantity:
-              <input id=demoInput type=number min=0 max=100 name="quant" value={{order.quantity}}>
-              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                <input type="submit" class="btn btn-primary" value="Save">
+              <input class=demoInput type=number min=0 max=100 name="quant" value={{order.quantity}}>
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">              
               </div>
             </form>
           </div>
@@ -52,5 +51,17 @@
       </div>
     </div>
   </main>
+
+  <script type="text/javascript">
+    let a = document.getElementsByClassName("demoInput");
+
+    clbk = (e) =>{
+      e.target.parentElement.submit()
+    }
+
+    for(let i = 0; i< a.length; i++){
+      a[i].onchange = clbk;
+    }
+  </script>
   
 {% endblock %}

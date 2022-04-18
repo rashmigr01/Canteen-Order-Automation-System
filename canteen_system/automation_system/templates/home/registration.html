@@ -21,7 +21,7 @@
             {% csrf_token %}
             <div class="user-details">
                 <div class="input-box">
-                    <span class="details">Full Name</span>
+                    <span class="details">Username</span>
                     <input type="text" placeholder="Enter your name" name="usern">
                 </div>
                 <div class="input-box">
@@ -43,21 +43,6 @@
                 <div class="input-box">
                     <span class="details">Confrim Password</span>
                     <input type="Password" placeholder="Re-Enter your password">
-                </div>
-            </div>
-            <div class="gender-details">
-                <input type="radio" name="isStaff" value="False" id="dot-1">
-                <input type="radio" name="isStaff" value="True" id="dot-2">
-                <span class="gender-title">Role</span>
-                <div class="category">
-                    <label for="dot-1">
-                        <span class="dot one"></span>
-                        <span class="gender">Student</span>
-                    </label>
-                    <label for="dot-2">
-                        <span class="dot two"></span>
-                        <span class="gender">Staff</span>
-                    </label>
                 </div>
             </div>
             <div class="button">
