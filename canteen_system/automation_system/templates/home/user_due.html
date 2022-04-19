@@ -2,6 +2,27 @@
 
 {% block content %}
 
+<style>
+    .align{
+      text-align: center;
+    }
+    .margin{
+      margin-left: 40%;
+    }
+</style>
 
+<main>
+    <div class="card margin align br" style="width: 18rem;">
+        <div class="card-body pb-1">
+          <h5 class="card-title">Unpaid Bills</h5>
+          <p class="card-text bold left mb-1 mt-2">Name</p><p class="right bold mb-1 mt-2">Balance</p>
+        </div>
+        <ul class="list-group list-group-flush">
+          {% for u, c in zipped %}
+          <li class="list-group-item"><p class="left">{{u}}</p><p class="right">₹{{c}}</p></li>
+          {% endfor %}
+        </ul>
+      </div>
+</main>
 
 {% endblock %}

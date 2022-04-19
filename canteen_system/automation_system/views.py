@@ -248,19 +248,18 @@ def user_due(request):
     for i in users:
         ords = Order.objects.filter(user = i, hall = UserExt.objects.get(user = request.user).hall).exclude(paystatus = 1).order_by('-id')    
         tot = 0
-        for i in ords:
-            t = i.item.price* i.quantity
-            if i.paystatus == 2 or i.paystatus ==3:
+        for j in ords:
+            t = j.item.price* j.quantity
+            if j.paystatus == 2 or j.paystatus ==3:
                 tot+= t
             
-            if tot > 0:
-                use.append(i)
-                cost.append(tot)
+        if tot > 0:
+            use.append(i)
+            cost.append(tot)
 
     context = {
         "username" : request.user.username,
         "staff" : UserExt.objects.get(user = request.user).isStaff,
         "zipped" : zip(use,cost)
-
     }
     return render(request, 'home/user_due.html', context)
