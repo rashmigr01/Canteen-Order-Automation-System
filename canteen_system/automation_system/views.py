@@ -101,7 +101,7 @@ def menu(request, hall):
 
 def orders(request):
     if UserExt.objects.get(user = request.user).isStaff == False:
-        ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 0).order_by('-id')    
+        ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 1).order_by('-id')    
         tot = 0
         for i in ords:
             t = i.item.price* i.quantity
@@ -117,7 +117,7 @@ def orders(request):
         return render(request, 'home/orders.html', context)
 
     else:
-        ords = Order.objects.filter(hall = UserExt.objects.get(user = request.user).hall)
+        ords = Order.objects.filter(hall = UserExt.objects.get(user = request.user).hall, deli = False)
 
         context = {
             'orders' : ords,
@@ -194,7 +194,12 @@ def paycart(request, paystat):
 
 def ownermenu(request, stat, itemId, hall):
 
-     # 0 for edit and 1 for add
+    if request.method == "GET":
+        it = MenuItem.objects.get(id = int(itemId))
+        it.delete()
+        return HttpResponseRedirect(reverse('auto:menu', args=(hall,) ))
+
+     # 0 for edit, 1 for add and 2 for delete
 
     if int(stat) == 0:
         it = MenuItem.objects.get(id = int(itemId))
@@ -221,7 +226,7 @@ def payconfirm(request,stat, orderId):
         ord.paystatus = 1
         ord.save()
     else:
-        ord.paystatus = 4
+        ord.deli = True
         ord.save()
 
     return HttpResponseRedirect(reverse('auto:orders'))
@@ -232,3 +237,30 @@ def contact_us(request):
         "staff" : UserExt.objects.get(user = request.user).isStaff
         }
     return render(request, 'home/contact_us.html', context)
+
+def user_due(request):
+
+    users = UserExt.objects.filter(isStaff = False)
+
+    use = []
+    cost = []
+
+    for i in users:
+        ords = Order.objects.filter(user = i, hall = UserExt.objects.get(user = request.user).hall).exclude(paystatus = 1).order_by('-id')    
+        tot = 0
+        for i in ords:
+            t = i.item.price* i.quantity
+            if i.paystatus == 2 or i.paystatus ==3:
+                tot+= t
+            
+            if tot > 0:
+                use.append(i)
+                cost.append(tot)
+
+    context = {
+        "username" : request.user.username,
+        "staff" : UserExt.objects.get(user = request.user).isStaff,
+        "zipped" : zip(use,cost)
+
+    }
+    return render(request, 'home/user_due.html', context)

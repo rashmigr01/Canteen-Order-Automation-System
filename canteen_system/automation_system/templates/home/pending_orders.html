@@ -27,6 +27,9 @@
               {% if order.paystatus == 3 %}
               <a href="{% url 'auto:payconfirm' 0 order.id %}" class="btn btn-primary left mt-1">Paid</a>
               {% endif %}
+              {% if not order.deli  %}
+              <a href="{% url 'auto:payconfirm' 1 order.id %}" class="btn btn-primary right left mt-1">Done</a>
+              {% endif %}
           </div>
         </div>
       </div>

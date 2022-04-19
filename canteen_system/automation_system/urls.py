@@ -22,5 +22,6 @@ urlpatterns = [
     path('home/orders', views.orders, name='orders'),
     path('home/cart/paycart/<int:paystat>', views.paycart, name='paycart'),
     path('home/contact_us', views.contact_us, name='contact_us'),
+    path('owner/user_due', views.user_due, name='user_due'),
 ]
 

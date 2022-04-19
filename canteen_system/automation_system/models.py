@@ -33,7 +33,6 @@ class Order(models.Model):
     1: Paid
     2: Unpaid
     3: Waiting
-    4: Delivered
     '''
 
     hall = models.IntegerField(null=True)
@@ -44,6 +43,7 @@ class Order(models.Model):
     paystatus = models.IntegerField(null=True)
     user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
     DateOfOrder = models.DateField(auto_now_add=True, null=True)
+    deli = models.BooleanField(null=True, default=False)
 
     @property
     def orderId(self):
