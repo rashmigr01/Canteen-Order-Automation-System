@@ -35,7 +35,10 @@ def login_user(request):
             login(request,user)
             return HttpResponseRedirect(reverse("auto:home"))
         else:
-            return HttpResponse("Ex occured")
+            context = {
+                'error' : 1
+            }
+            return render(request, 'home/login.html',context)
 
     return render(request, 'home/login.html')
 

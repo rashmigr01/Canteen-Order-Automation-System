@@ -6,7 +6,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
     <link rel="stylesheet" href="{% static 'home/registration.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'home/icon/apple-touch-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'home/icon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'home/icon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'home/icon/site.webmanifest' %}">
     <title>Registration Page</title>
+    <script>
+        function check_pass() {
+            if (document.getElementById('passw').value == document.getElementById('passw1').value)
+            {
+                document.getElementById('message').innerHTML = '';
+                document.getElementById('submit').disabled = false;
+            }
+            else 
+            {
+                document.getElementById('message').innerHTML = 'Password and Confirm Password are not matching';
+                document.getElementById('submit').disabled = true;
+                document.getElementById('message').style.opacity = 0.5;
+            }
+        }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -22,35 +42,36 @@
             <div class="user-details">
                 <div class="input-box">
                     <span class="details">Username</span>
-                    <input type="text" placeholder="Enter your iitk cc username" name="usern">
+                    <input type="text" placeholder="Enter your iitk cc username" name="usern" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Roll Number</span>
-                    <input type="text" placeholder="Enter your Rollno" name="roll">
+                    <input type="number" placeholder="Enter your Rollno" name="roll" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Mail</span>
-                    <input type="email" placeholder="Enter your iitk mail id" name="email">
+                    <input type="email" placeholder="Enter your iitk mail id" name="email" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Phone Number</span>
-                    <input type="tel" placeholder="Enter your Phone Number" name="phone">
+                    <input type="tel" placeholder="Enter your Phone Number" name="phone" pattern="[0-9]{10}" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Password</span>
-                    <input type="password" placeholder="Enter your password" name="passw">
+                    <input type="password" placeholder="Enter your password" name="passw" id="passw" onchange='check_pass();' required>
                 </div>
                 <div class="input-box">
-                    <span class="details">Confrim Password</span>
-                    <input type="Password" placeholder="Re-Enter your password">
+                    <span class="details">Confirm Password</span>
+                    <input type="password" placeholder="Re-Enter your password" name="passw1" id="passw1" onchange='check_pass();' required>
+                    <span id="message"></span>
                 </div>
                 <div class="input-box">
                     <span class="details">Hall</span>
-                    <input type="number" min="1" max="13" placeholder="Enter your hall number" name="hall">
+                    <input type="number" min="1" max="13" placeholder="Enter your hall number" name="hall" required>
                 </div>
             </div>
             <div class="button">
-                <input type="submit" value="Register">
+                <input type="submit" value="Register" id="submit" disabled>
             </div>
         </form>
     </div>

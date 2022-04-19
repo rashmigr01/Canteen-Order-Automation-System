@@ -27,6 +27,9 @@
             <span></span>
           </div>
           <input type="submit" value="Login"/>
+          {% if error %}
+          <div class="signup_link">Invaild Username or Password!</div>
+          {% endif %}
           <div class="signup_link">New User? <a href="{% url 'auto:register' %}">Register</a></div>
         </form>
       </div>
