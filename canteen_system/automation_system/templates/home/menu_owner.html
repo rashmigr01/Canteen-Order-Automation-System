@@ -24,7 +24,6 @@
         <form action="{% url 'auto:ownermenu' 1 0 hall %}" method="post">
           {% csrf_token %}
             <p class="card-text">Item Name : <input type=text name="item" class="right" style="width: 65%;"></p>
-            <p class="card-text">Hall : <input type=number name="hall" min=1 max=13 ></p>
             <p class="card-text">Price : <input type=number name="price" min=0 max=1000 ></p>
             <p class="card-text">Availibility : 
                 <input type="radio" name="avail" value="1">

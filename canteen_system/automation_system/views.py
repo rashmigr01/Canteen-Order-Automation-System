@@ -59,11 +59,11 @@ def profile(request):
     return render(request, 'home/profile.html', context)
 
 def menu(request, hall):
-    items = MenuItem.objects.filter(hall = hall)
 
     rat = []
 
     if UserExt.objects.get(user = request.user).isStaff == False:
+        items = MenuItem.objects.filter(hall = hall)
         for item in items:
             avg = {'rating' : 0}
             it = Review.objects.filter(item = item)
@@ -81,6 +81,7 @@ def menu(request, hall):
             }
         return render(request, 'home/menu.html', context)
     else:
+        items = MenuItem.objects.filter(hall = UserExt.objects.get(user = request.user).hall)
         for item in items:
             avg = {'rating' : 0}
             it = Review.objects.filter(item = item)
@@ -90,8 +91,8 @@ def menu(request, hall):
             rat.append(avg)
 
         context = {
-            'hall': hall,
-            'items':items,
+            'hall': UserExt.objects.get(user = request.user).hall,
+            'items': items,
             'ratings': rat,
             "username" : request.user.username,
             "staff" : UserExt.objects.get(user = request.user).isStaff
@@ -116,7 +117,7 @@ def orders(request):
         return render(request, 'home/orders.html', context)
 
     else:
-        ords = Order.objects.all()
+        ords = Order.objects.filter(hall = UserExt.objects.get(user = request.user).hall)
 
         context = {
             'orders' : ords,
@@ -207,7 +208,7 @@ def ownermenu(request, stat, itemId, hall):
 
     else:
         po = request.POST
-        it = MenuItem(hall = int(po['hall']), item = po['item'], price = int(po['price']), avail = True if po['avail'] == '1' else False, isveg = True if po['isveg'] == '1' else False)
+        it = MenuItem(hall = UserExt.objects.get(user = request.user).hall, item = po['item'], price = int(po['price']), avail = True if po['avail'] == '1' else False, isveg = True if po['isveg'] == '1' else False)
         it.save()
     
     return HttpResponseRedirect(reverse('auto:menu', args=(hall,) ))

@@ -27,8 +27,9 @@
               <p class="card-text">Availibility : {{item.avail}}</p>
               <p class="card-text">Is Veg : {{item.isveg}}</p>
               <p class="card-text">Averate Rating : {{it.rating}}</p>
-              <!-- <a href="#" class="text-muted ud">Ratings</a> -->
+              {% if item.avail %}
               <a href="{% url 'auto:tocart' item.hall item.id %}" class="btn btn-primary mt-1">Add To Cart</a>
+              {% endif %}
             </div>
           </div>
         </div>
