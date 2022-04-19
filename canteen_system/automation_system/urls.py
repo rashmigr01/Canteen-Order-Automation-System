@@ -23,5 +23,6 @@ urlpatterns = [
     path('home/cart/paycart/<int:paystat>', views.paycart, name='paycart'),
     path('home/contact_us', views.contact_us, name='contact_us'),
     path('owner/user_due', views.user_due, name='user_due'),
+    path('owner/completed_orders', views.completed_orders, name='completed_orders'),
 ]
 

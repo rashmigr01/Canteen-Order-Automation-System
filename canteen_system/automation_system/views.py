@@ -102,14 +102,30 @@ def menu(request, hall):
 def orders(request):
     if UserExt.objects.get(user = request.user).isStaff == False:
         ords = Order.objects.filter(user = UserExt.objects.get(user = request.user)).exclude(paystatus = 1).order_by('-id')    
-        tot = 0
+        
+        revs = []
+        
         for i in ords:
-            t = i.item.price* i.quantity
-            if i.paystatus == 2 or i.paystatus ==3:
-                tot+= t
+            rev = Review.objects.filter(user = UserExt.objects.get(user = request.user), item = i.item)
+            rev = rev[0] if len(rev) >0 else rev
+            revs.append(rev)
+
+
+        tot = []
+        tf = 0
+        for j in range(1,14):
+            p = 0
+            for i in ords:
+                if i.item.hall == j:
+                    if i.paystatus == 2 or i.paystatus ==3:
+                        t = i.item.price* i.quantity
+                        tf = tf + t
+                        p = p + t
+            tot.append(p)
 
         context = {
-            'orders' : ords,
+            'full_total' : tf,
+            'orders' : zip(ords,revs),
             'total' : tot,
             "username" : request.user.username,
             "staff" : UserExt.objects.get(user = request.user).isStaff
@@ -263,3 +279,14 @@ def user_due(request):
         "zipped" : zip(use,cost)
     }
     return render(request, 'home/user_due.html', context)
+
+def completed_orders(request):
+    ords = Order.objects.filter(hall = UserExt.objects.get(user = request.user).hall, deli = True)
+
+    context = {
+        'orders' : ords,
+        "username" : request.user.username,
+        "staff" : UserExt.objects.get(user = request.user).isStaff
+    }
+
+    return render(request, 'home/completed_orders.html', context)

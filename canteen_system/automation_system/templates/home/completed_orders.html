@@ -1,0 +1,49 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+<style>
+    .align{
+      text-align: center;
+    }
+    .margin{
+      margin-left: 40%;
+    }
+    .bg{
+      background-color: white;
+      width: 70%;
+      margin-left: 15%;
+    }
+  </style>
+  <main>
+    <table class="table bg br ">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Item</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Paystatus</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for order in orders reversed %}
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{order.item.item}}</td>
+            <td>{{order.user}}</td>
+            <td>₹{{order.item.price}}</td>
+            <td>{{order.quantity}}</td>
+            {% if order.paystatus == 1 %}
+            <td>Paid </td>
+            {% else %}
+            <td>Unpaid </td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+  </main>
+
+{% endblock %}

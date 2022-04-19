@@ -9,46 +9,80 @@
   .margin{
     margin-left: 40%;
   }
+  .bg{
+    background-color: white;
+    width: 70%;
+    margin-left: 15%;
+  }
 </style>
 
   <main>
     <div class="card margin align mb-5 br" style="width: 18rem;">
       <div class="card-body">
         <h5 class="card-title">Unpaid Bills</h5>
+        <p class="card-text bold left mb-1 mt-2">Hall</p><p class="right bold mb-1 mt-2">Balance</p>
       </div>
       <ul class="list-group list-group-flush ">
-        <li class="list-group-item "><p>Total: ₹{{total}}</p></li>
+        {% for t in total %}
+        {% if t %}
+        <li class="list-group-item"><p class="left">Hall {{forloop.counter}}</p><p class="right">₹{{t}}</p></li>
+        {% endif %}
+        {% endfor %}
+        <li class="list-group-item"><p class="right bold">Total: ₹{{full_total}}</p></li>
       </ul>
     </div>
-    <div class="row pb-5">
-      {% for order in orders %}
-      <div class="col-sm-2">
-        <div class="card br">
-          <div class="card-body">
-            <h5 class="card-title">{{order.item.item}}</h5>
-            <p class="card-text">Quantity : {{order.quantity}} </p>
-            <p class="card-text">Price : ₹{{order.item.price}} </p>
-            {% if order.paystatus == 1 %}
-            <p class="card-text">PayStatus : Paid </p>
-            {% elif order.paystatus == 3 %}
-            <p class="card-text">PayStatus : Waiting </p>
-            {% else %}
-            <p class="card-text">PayStatus : Unpaid </p>
-            {% endif %}
+    <table class="table bg br ">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item</th>
+          <th scope="col">Hall</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Paystatus</th>
+          <th scope="col">Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order,review in orders %}
+        <tr>
+          <th scope="row">{{forloop.counter}}</th>
+          <td>{{order.item.item}}</td>
+          <td>{{order.item.hall}}</td>
+          <td>₹{{order.item.price}}</td>
+          <td>{{order.quantity}}</td>
+          {% if order.paystatus == 1 %}
+          <td>Paid </td>
+          {% elif order.paystatus == 3 %}
+          <td>Waiting </td>
+          {% else %}
+          <td>Unpaid </td>
+          {% endif %}
+          <td>
             <form action="{% url 'auto:savereview' order.item.id %}" method="post" >
               {% csrf_token %}
               Rating:
-              <input id=demoInput type=number min=0 max=5 name="rate" value="{{Reviews.rating}}">
-              <input type="submit" class="btn btn-primary right mt-2" value="Rate">
+              <input class=demoInput type=number min=0 max=5 name="rate" value="{{review.rating}}">
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">              
+              </div>
             </form>
-          </div>
-        </div>
-      </div>
-      {% if forloop.counter|divisibleby:6 and forloop.counter > 0 %}
-        </div><div class="row pb-5">
-      {% endif %}
-      {% endfor %}
-    </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </main>
+
+  <script type="text/javascript">
+    let a = document.getElementsByClassName("demoInput");
+
+    clbk = (e) =>{
+      e.target.parentElement.submit()
+    }
+
+    for(let i = 0; i< a.length; i++){
+      a[i].onchange = clbk;
+    }
+  </script>
 
 {% endblock %}

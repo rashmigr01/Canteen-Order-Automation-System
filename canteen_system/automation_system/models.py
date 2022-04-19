@@ -56,7 +56,7 @@ class Order(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(UserExt, on_delete=models.CASCADE)
-    rating = models.IntegerField(null=True)
+    rating = models.IntegerField(null=True,default=0)
     item = models.ForeignKey(MenuItem, on_delete = models.CASCADE)
 
     def __str__(self) -> str:
