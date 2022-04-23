@@ -36,6 +36,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div> {% endcomment %}
+        <a style="opacity:0.5; color:black; text-decoration: none;" class="details " href="{% url 'auto:login' %}">Back to Login</a>
         <div class="title">Register</div>
         <form action="{% url 'auto:register' %}" method="post">
             {% csrf_token %}
@@ -43,6 +44,9 @@
                 <div class="input-box">
                     <span class="details">Username</span>
                     <input type="text" placeholder="Enter your iitk cc username" name="usern" required>
+                    {% if error %}
+                    <span style="opacity:0.5;" class="details">Username already exists</span>
+                    {% endif %}
                 </div>
                 <div class="input-box">
                     <span class="details">Roll Number</span>
@@ -63,7 +67,7 @@
                 <div class="input-box">
                     <span class="details">Confirm Password</span>
                     <input type="password" placeholder="Re-Enter your password" name="passw1" id="passw1" onchange='check_pass();' required>
-                    <span id="message"></span>
+                    <span id="message" class="details"></span>
                 </div>
                 <div class="input-box">
                     <span class="details">Hall</span>
