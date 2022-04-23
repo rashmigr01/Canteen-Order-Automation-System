@@ -12,6 +12,15 @@ def register(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse("auto:home"))
     if request.method == "POST":
+        
+        a = User.objects.filter(username = request.POST["usern"])
+
+        if(len(a) > 0):
+            context = {
+                'error' : 1
+            }
+            return render(request, 'home/registration.html', context)
+        
         user = User.objects.create_user(username = request.POST["usern"], email = request.POST["email"], password= request.POST["passw"])
         user.save()
 
